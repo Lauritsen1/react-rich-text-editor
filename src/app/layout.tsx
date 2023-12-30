@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 import { Inter as FontSans } from "next/font/google"
 
+import { ModeToggle } from "@/components/mode-toggle"
+
 import "@/styles/globals.css"
 
 import { cn } from "@/lib/utils"
@@ -35,6 +37,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <header className="container flex justify-end py-4">
+            <ModeToggle />
+          </header>
           {children}
         </ThemeProvider>
       </body>
