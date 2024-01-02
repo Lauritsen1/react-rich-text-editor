@@ -15,9 +15,7 @@ import { getSelectedNode } from "../lib/utils"
 export function HeadingSelect() {
   const { editor } = useCurrentEditor()
 
-  if (!editor) {
-    return null
-  }
+  if (!editor) return null
 
   const [activeNodeValue, setActiveNodeValue] = useState<string>("")
   const activeNode = NODES.find((node) => node.value === activeNodeValue)

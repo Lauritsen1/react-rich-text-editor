@@ -10,15 +10,11 @@ import { MarkType } from "../lib/types"
 export function MarkToolbarButton({ markType }: { markType: MarkType }) {
   const { editor } = useCurrentEditor()
 
-  if (!editor) {
-    return null
-  }
+  if (!editor) return null
 
   const mark = MARKS.find((mark) => mark.value === markType)
 
-  if (!mark) {
-    return null
-  }
+  if (!mark) return null
 
   return (
     <Toggle
