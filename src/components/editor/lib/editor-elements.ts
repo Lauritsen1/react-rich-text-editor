@@ -28,18 +28,3 @@ export const NODES: ElementType<NodeType>[] = [
     action: (editor) => editor.chain().focus().setParagraph().run(),
   },
 ]
-
-export const MARKS: ElementType<MarkType>[] = [
-  {
-    value: "bold",
-    label: "Bold",
-    icon: Icon.Bold,
-    action: (editor) => editor.chain().focus().toggleBold().run(),
-  },
-  {
-    value: "italic",
-    label: "Italic",
-    icon: Icon.Italic,
-    action: (editor) => editor.chain().focus().toggleItalic().run(),
-  },
-]
