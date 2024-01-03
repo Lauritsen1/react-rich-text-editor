@@ -9,10 +9,3 @@ export function getAllExtensions(editor: Editor) {
 export function getExtensionsByType(editor: Editor, type: ExtensionType) {
   return getAllExtensions(editor).filter((extension) => extension.type === type)
 }
-
-export function getSelectedNode(editor: Editor) {
-  const { $from } = editor.state.selection
-  const node = $from.node()
-
-  return node
-}

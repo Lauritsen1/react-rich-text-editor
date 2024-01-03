@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react"
-import { useCurrentEditor } from "@tiptap/react"
+import { Heading1, Heading2, Heading3, LucideIcon, Pilcrow } from "lucide-react"
 
 import {
   Select,
@@ -9,55 +8,62 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-import { NODES } from "../lib/editor-elements"
-import { getSelectedNode } from "../lib/utils"
+import { useCurrentEditorWrapper } from "../hooks/use-current-editor-wrapper"
+import { useSelectedNode } from "../hooks/use-selected-node"
+import { getExtensionsByType } from "../lib/utils"
+
+const headingIcons: Record<string, LucideIcon> = {
+  "1": Heading1,
+  "2": Heading2,
+  "3": Heading3,
+}
 
 export function HeadingSelect() {
-  const { editor } = useCurrentEditor()
+  const editor = useCurrentEditorWrapper()
 
-  if (!editor) return null
-
-  const [activeNodeValue, setActiveNodeValue] = useState<string>("")
-  const activeNode = NODES.find((node) => node.value === activeNodeValue)
-
-  useEffect(() => {
-    const node = getSelectedNode(editor)
-    const nodeName = node.type.name
-    const nodeAttrs = node.attrs
-
-    setActiveNodeValue(
-      nodeName === "heading" ? `heading${nodeAttrs.level}` : nodeName
-    )
-
-    editor.view.focus()
-  }, [editor.state])
+  const { nodeName, nodeAttrs } = useSelectedNode(editor)
+  const nodeExtensions = getExtensionsByType(editor, "node")
+  const headings = nodeExtensions.find((ext) => ext.name === "heading")
 
   const onValueChange = (value: string) => {
-    const selectedNode = NODES.find((node) => node.value === value)
-
-    if (selectedNode) {
-      selectedNode.action(editor)
+    if (value === "paragraph") {
+      editor.chain().focus().setNode("paragraph").run()
+    } else {
+      const level: number = parseInt(value)
+      editor.chain().focus().setNode("heading", { level }).run()
     }
   }
 
+  const current = {
+    value: nodeName === "heading" ? nodeAttrs.level : "paragraph",
+    label: nodeName === "heading" ? `Heading ${nodeAttrs.level}` : "Paragraph",
+  }
+
   return (
-    <Select onValueChange={onValueChange} value={activeNodeValue}>
+    <Select onValueChange={onValueChange} value={current.value}>
       <SelectTrigger className="w-[180px] border-none ring-transparent hover:bg-accent">
         <SelectValue>
-          <span className="font-semibold">
-            {activeNode ? activeNode.label : ""}
-          </span>
+          <span className="font-semibold">{current.label}</span>
         </SelectValue>
       </SelectTrigger>
       <SelectContent>
-        {NODES.map((node) => (
-          <SelectItem key={node.value} value={node.value}>
-            <div className="flex items-center">
-              <node.icon className="mr-2 h-5 w-5" />
-              {node.label}
-            </div>
-          </SelectItem>
-        ))}
+        {headings?.options.levels.map((level: string) => {
+          const Icon = headingIcons[level]
+          return (
+            <SelectItem key={level} value={level}>
+              <div className="flex items-center">
+                <Icon className="mr-2 h-5 w-5" />
+                Heading {level}
+              </div>
+            </SelectItem>
+          )
+        })}
+        <SelectItem value="paragraph">
+          <div className="flex items-center">
+            <Pilcrow className="mr-2 h-5 w-5" />
+            paragraph
+          </div>
+        </SelectItem>
       </SelectContent>
     </Select>
   )
