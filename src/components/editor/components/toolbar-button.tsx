@@ -19,7 +19,7 @@ export function ToolbarToggle({
 }: ToolbarItemProps) {
   return tooltip ? (
     <Tooltip>
-      <TooltipTrigger>
+      <TooltipTrigger asChild>
         <Toggle {...props}>{children}</Toggle>
       </TooltipTrigger>
       <TooltipContent>
