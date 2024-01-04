@@ -1,7 +1,7 @@
 import { List, ListOrdered } from "lucide-react"
 
 import { useCurrentEditorWrapper } from "../hooks/use-current-editor-wrapper"
-import { ToolbarToggle } from "./toolbar-button"
+import { ToolbarToggle } from "./toolbar-toggle"
 
 type ListType = "bulletList" | "orderedList"
 
