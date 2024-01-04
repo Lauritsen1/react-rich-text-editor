@@ -1,4 +1,4 @@
-import { List } from "lucide-react"
+import { TooltipProvider } from "@/components/ui/tooltip"
 
 import { HeadingSelect } from "../components/heading-select"
 import { ListToolbarButton } from "../components/list-toolbar-button"
@@ -7,16 +7,24 @@ import { ToolbarButtonGroup } from "../components/toolbar-button-group"
 
 export function FixedToolbar() {
   return (
-    <div className="flex select-none border-b p-1 ">
-      <HeadingSelect />
-      <ToolbarButtonGroup>
-        <MarkToolbarButton markType="bold" />
-        <MarkToolbarButton markType="italic" />
-      </ToolbarButtonGroup>
-      <ToolbarButtonGroup>
-        <ListToolbarButton listType="bulletList" />
-        <ListToolbarButton listType="orderedList" />
-      </ToolbarButtonGroup>
-    </div>
+    <TooltipProvider>
+      <div className="flex select-none border-b p-1 ">
+        <HeadingSelect />
+        <ToolbarButtonGroup>
+          <MarkToolbarButton markType="bold" tooltip="Bold (⌘ + B)" />
+          <MarkToolbarButton markType="italic" tooltip="Italic (⌘ + I)" />
+        </ToolbarButtonGroup>
+        <ToolbarButtonGroup>
+          <ListToolbarButton
+            listType="bulletList"
+            tooltip="Bullet List (⌘ + Shift + 8)"
+          />
+          <ListToolbarButton
+            listType="orderedList"
+            tooltip="Ordered List (⌘ + Shift + 7)"
+          />
+        </ToolbarButtonGroup>
+      </div>
+    </TooltipProvider>
   )
 }

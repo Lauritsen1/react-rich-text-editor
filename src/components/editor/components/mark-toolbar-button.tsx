@@ -1,9 +1,9 @@
 "use client"
 
-import { useCurrentEditor } from "@tiptap/react"
 import { Bold, Italic } from "lucide-react"
 
-import { Toggle } from "@/components/ui/toggle"
+import { useCurrentEditorWrapper } from "../hooks/use-current-editor-wrapper"
+import { ToolbarToggle } from "./toolbar-button"
 
 type MarkType = "bold" | "italic"
 
@@ -12,20 +12,26 @@ const markIcons = {
   italic: Italic,
 }
 
-export function MarkToolbarButton({ markType }: { markType: MarkType }) {
-  const { editor } = useCurrentEditor()
+interface MarkToolbarButtonProps {
+  markType: MarkType
+  tooltip?: string
+}
 
-  if (!editor) return null
+export function MarkToolbarButton({
+  markType,
+  tooltip,
+}: MarkToolbarButtonProps) {
+  const editor = useCurrentEditorWrapper()
 
   const Icon = markIcons[markType]
 
   return (
-    <Toggle
-      value={markType}
+    <ToolbarToggle
+      tooltip={tooltip || ""}
       data-state={editor.isActive(markType) ? "on" : "off"}
       onClick={() => editor.chain().focus().toggleMark(markType).run()}
     >
       <Icon className="h-4 w-4" />
-    </Toggle>
+    </ToolbarToggle>
   )
 }
