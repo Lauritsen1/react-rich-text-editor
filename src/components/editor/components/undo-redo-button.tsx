@@ -25,7 +25,7 @@ const undoRedoConfig: UndoRedoConfig = {
   },
   redo: {
     icon: Redo,
-    command: (editor: Editor) => editor.chain().focus().redo(),
+    command: (editor: Editor) => editor.chain().focus().redo().run(),
     canExecute: (editor: Editor) => editor.can().redo(),
   },
 }
