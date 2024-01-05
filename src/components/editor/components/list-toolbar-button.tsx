@@ -25,7 +25,7 @@ export function ListToolbarButton({
 
   return (
     <ToolbarToggle
-      tooltip={tooltip || ""}
+      tooltip={tooltip || null}
       data-state={editor.isActive(listType) ? "on" : "off"}
       onClick={() =>
         editor.chain().focus().toggleList(listType, "listItem").run()

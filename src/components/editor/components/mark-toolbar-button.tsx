@@ -27,7 +27,7 @@ export function MarkToolbarButton({
 
   return (
     <ToolbarToggle
-      tooltip={tooltip || ""}
+      tooltip={tooltip || null}
       data-state={editor.isActive(markType) ? "on" : "off"}
       onClick={() => editor.chain().focus().toggleMark(markType).run()}
     >

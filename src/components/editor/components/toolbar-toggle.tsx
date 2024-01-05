@@ -9,7 +9,7 @@ import {
 
 type ToolbarItemProps = ComponentPropsWithoutRef<typeof Toggle> & {
   children: ReactNode
-  tooltip: string
+  tooltip: string | null
 }
 
 export function ToolbarToggle({
