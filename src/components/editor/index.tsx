@@ -1,6 +1,7 @@
 "use client"
 
-import { BubbleMenu, EditorProvider, FloatingMenu } from "@tiptap/react"
+import Link from "@tiptap/extension-link"
+import { EditorProvider, FloatingMenu } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
 
 import { FixedToolbar } from "./toolbars/fixed-toolbar"
@@ -12,6 +13,9 @@ export function Editor() {
         levels: [1, 2, 3],
       },
     }),
+    Link.configure({
+      openOnClick: false,
+    }),
   ]
 
   const content = `
@@ -19,6 +23,7 @@ export function Editor() {
     <h2>This is a Heading 2</h2>
     <h3>This is a Heading 3</h3>
     <p>This is a Paragraph</p>
+    <a href="https://example.com">This is a Link</a>
    `
 
   const editorProps = {
@@ -29,7 +34,7 @@ export function Editor() {
   }
 
   return (
-    <div className="w-full rounded-md border shadow">
+    <div className="w-full rounded-md border bg-background shadow-md">
       <EditorProvider
         slotBefore={<FixedToolbar />}
         extensions={extensions}
@@ -40,7 +45,6 @@ export function Editor() {
         <FloatingMenu className="hidden">
           This is the floating menu
         </FloatingMenu>
-        <BubbleMenu className="hidden">This is the bubble menu</BubbleMenu>
       </EditorProvider>
     </div>
   )

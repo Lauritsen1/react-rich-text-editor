@@ -1,6 +1,7 @@
 import { TooltipProvider } from "@/components/ui/tooltip"
 
 import { HeadingSelect } from "../components/heading-select"
+import { LinkToolbarToggle } from "../components/link-toolbar-toggle"
 import { ListToolbarButton } from "../components/list-toolbar-button"
 import { MarkToolbarButton } from "../components/mark-toolbar-button"
 import { ToolbarControlGroup } from "../components/toolbar-control-group"
@@ -30,6 +31,9 @@ export function FixedToolbar() {
             listType="orderedList"
             tooltip="Ordered List (⌘ + Shift + 7)"
           />
+        </ToolbarControlGroup>
+        <ToolbarControlGroup>
+          <LinkToolbarToggle tooltip="Link" />
         </ToolbarControlGroup>
       </div>
     </TooltipProvider>
